@@ -1,26 +1,27 @@
 <script setup lang='ts'>
 import type { CSSProperties } from 'vue'
 import { computed, ref, watch } from 'vue'
-import { NButton, NLayoutSider } from 'naive-ui'
+import { NLayoutSider } from 'naive-ui'
+import Header from './Header.vue'
 import List from './List.vue'
-import Footer from './Footer.vue'
-import { useAppStore, useChatStore } from '@/store'
+// import { useAppStore, useChatStore } from '@/store'
+import { useAppStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { PromptStore } from '@/components/common'
 
 const appStore = useAppStore()
-const chatStore = useChatStore()
+// const chatStore = useChatStore()
 
 const { isMobile } = useBasicLayout()
 const show = ref(false)
 
 const collapsed = computed(() => appStore.siderCollapsed)
 
-function handleAdd() {
-  chatStore.addHistory({ title: 'New Chat', uuid: Date.now(), isEdit: false })
-  if (isMobile.value)
-    appStore.setSiderCollapsed(true)
-}
+// function handleAdd() {
+//   chatStore.addHistory({ title: 'New Chat', uuid: Date.now(), isEdit: false })
+//   if (isMobile.value)
+//     appStore.setSiderCollapsed(true)
+// }
 
 function handleUpdateCollapsed() {
   appStore.setSiderCollapsed(!collapsed.value)
@@ -70,22 +71,23 @@ watch(
     @update-collapsed="handleUpdateCollapsed"
   >
     <div class="flex flex-col h-full" :style="mobileSafeArea">
+      <Header />
       <main class="flex flex-col flex-1 min-h-0">
-        <div class="p-4">
+        <!-- <div class="p-4">
           <NButton dashed block @click="handleAdd">
             {{ $t('chat.newChatButton') }}
           </NButton>
-        </div>
+        </div> -->
         <div class="flex-1 min-h-0 pb-4 overflow-hidden">
           <List />
         </div>
-        <div class="p-4">
+        <!-- <div class="p-4">
           <NButton block @click="show = true">
             {{ $t('store.siderButton') }}
           </NButton>
-        </div>
+        </div> -->
       </main>
-      <Footer />
+      <!-- <Footer /> -->
     </div>
   </NLayoutSider>
   <template v-if="isMobile">

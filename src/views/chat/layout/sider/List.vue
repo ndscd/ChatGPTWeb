@@ -1,10 +1,10 @@
 <script setup lang='ts'>
 import { computed } from 'vue'
-import { NInput, NPopconfirm, NScrollbar } from 'naive-ui'
+import { NInput, NScrollbar } from 'naive-ui'
 import { SvgIcon } from '@/components/common'
 import { useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { debounce } from '@/utils/functions/debounce'
+// import { debounce } from '@/utils/functions/debounce'
 
 const { isMobile } = useBasicLayout()
 
@@ -30,14 +30,14 @@ function handleEdit({ uuid }: Chat.History, isEdit: boolean, event?: MouseEvent)
   chatStore.updateHistory(uuid, { isEdit })
 }
 
-function handleDelete(index: number, event?: MouseEvent | TouchEvent) {
-  event?.stopPropagation()
-  chatStore.deleteHistory(index)
-  if (isMobile.value)
-    appStore.setSiderCollapsed(true)
-}
+// function handleDelete(index: number, event?: MouseEvent | TouchEvent) {
+//   event?.stopPropagation()
+//   chatStore.deleteHistory(index)
+//   if (isMobile.value)
+//     appStore.setSiderCollapsed(true)
+// }
 
-const handleDeleteDebounce = debounce(handleDelete, 600)
+// const handleDeleteDebounce = debounce(handleDelete, 600)
 
 function handleEnter({ uuid }: Chat.History, isEdit: boolean, event: KeyboardEvent) {
   event?.stopPropagation()
@@ -83,7 +83,7 @@ function isActive(uuid: number) {
                   <SvgIcon icon="ri:save-line" />
                 </button>
               </template>
-              <template v-else>
+              <!-- <template v-else>
                 <button class="p-1">
                   <SvgIcon icon="ri:edit-line" @click="handleEdit(item, true, $event)" />
                 </button>
@@ -95,7 +95,7 @@ function isActive(uuid: number) {
                   </template>
                   {{ $t('chat.deleteHistoryConfirm') }}
                 </NPopconfirm>
-              </template>
+              </template> -->
             </div>
           </a>
         </div>
