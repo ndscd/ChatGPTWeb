@@ -8,6 +8,7 @@ import fetch from 'node-fetch'
 import { sendResponse } from '../utils'
 import { isNotEmptyString } from '../utils/is'
 import type { ApiModel, ChatContext, ChatGPTUnofficialProxyAPIOptions, ModelConfig } from '../types'
+import { sysMessage } from '../utils/msguitl'
 import type { RequestOptions, SetProxyOptions, UsageResponse } from './types'
 
 const { HttpsProxyAgent } = httpsProxyAgent
@@ -88,8 +89,9 @@ async function chatReplyProcess(options: RequestOptions) {
     let options: SendMessageOptions = { timeoutMs }
 
     if (apiModel === 'ChatGPTAPI') {
-      if (isNotEmptyString(systemMessage))
-        options.systemMessage = systemMessage
+      // if (isNotEmptyString(systemMessage))
+      //   options.systemMessage = systemMessage
+      options.systemMessage = sysMessage
       options.completionParams = { model, temperature, top_p }
     }
 
